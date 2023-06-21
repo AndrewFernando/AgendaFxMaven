@@ -1,15 +1,35 @@
 package com.example.Controlador.view;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.util.Collections;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import com.example.Controlador.MainApp;
 import com.example.Controlador.Modelo.Person;
 import com.example.Controlador.util.DateUtil;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.FileChooser;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 public class PersonOverviewController {
@@ -124,6 +144,31 @@ public class PersonOverviewController {
             alert.showAndWait();
         }
     }
+    private ObservableList<Person> personData;
+    public void setPersonData(ObservableList<Person> personData) {
+        this.personData = personData;
+    }
+
+    @FXML
+    private void DescargarReporte() {
+        try {
+            JasperReport jasperReport = null;
+            JasperPrint jasperPrint = null;
+            JasperDesign jasperDesign = null;
+            Map<String, Object> parameters = new HashMap<>();
+            jasperDesign = JRXmlLoader.load("D:\\UNIVERSIDAD\\7moSemestre\\ConstruccionSoftware\\AgendaFxMaven-main\\src\\main\\java\\com\\example\\Controlador\\Reprote\\ReportePersonas.jrxml");
+            jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JRBeanCollectionDataSource(personData));
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "target/ListaPersonas.pdf");
+            JasperViewer.viewReport(jasperPrint);   
+        } catch (Exception ex) {
+            System.out.println("EXCEPTION: " + ex);
+        }
+    }
+
+
+
+    
 
     /**
      * Is called by the main application to give a reference back to itself.

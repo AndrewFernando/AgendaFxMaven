@@ -5,18 +5,18 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controlador.view.RootLayoutController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="820.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Controlador.view.RootLayoutController">
    <top>
       <MenuBar stylesheets="@DarkTheme.css" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Archivos">
             <items>
-              <MenuItem mnemonicParsing="false" text="Salir" />
+              <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Salir" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Estadistica">
             <items>
-              <MenuItem mnemonicParsing="false" text="Cumpleaños" />
+              <MenuItem mnemonicParsing="false" onAction="#handleShowBirthdayStatistics" text="Cumpleaños" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
